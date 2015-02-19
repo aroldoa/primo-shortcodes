@@ -72,6 +72,72 @@ function uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr ){
 	</script>";
 	return $output;
 }
+
+function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $i){
+	switch ($gridtype) {
+		case 'dgrid':
+			$output .= "
+					<li class='col-sm-$maxcols'>
+						<div class='dgrid'>
+	    					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+	    						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
+	    					."</a>
+	    				</div>
+	    				<div class='dgrid-text-wrapper'>
+	    					<h3>". get_the_title($post->ID) ."</h3>
+	    					<p>". $excerpt ."</p>
+	    				</div>
+					</li>
+				  ";
+			break;
+		case 'lgrid':
+			$output .= "
+    				<li class='clearfix'>";
+    				if($i % 2 != 0){
+    					$output .= "
+    					<div class='lgrid-img-wrapper col-sm-$maxcols'>
+        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
+        					."</a>
+        				</div>
+        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
+        					<h3>". get_the_title($post->ID) ."</h3>
+        					<p>". $excerpt ."</p>
+        				</div>";
+        			}else{
+        				$output .= "
+        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
+        					<h3>". get_the_title($post->ID) ."</h3>
+        					<p>". $excerpt ."</p>
+        				</div>
+        				<div class='lgrid-img-wrapper col-sm-$maxcols'>
+        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
+        					."</a>
+        				</div>";
+        			}
+        	$output .= "</li>
+        			  ";
+        	break;
+        case 'fgrid':
+        	$output .= "
+        				<li class='col-sm-$maxcols nogutter'>
+        					<div class='fgrid-img-wrapper'>
+	        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
+	        					."</a>
+	        				</div>
+	        				<div class='fgrid-text-wrapper'>
+		        				<h3>". get_the_title($post->ID) ."</h3>
+		        				<p>". $excerpt ."</p>
+	        				</div>
+        				</li>
+        			  ";
+        	break;
+	}
+
+	return $output;
+}
 add_shortcode('posts', 'uus_posts_listing');
 
 function uus_posts_listing($atts, $content){
@@ -134,88 +200,13 @@ function uus_posts_listing($atts, $content){
     }else{
     	$output = "<ul id='$id' class='posts'>";
     	$maxcols = $bootstrap_default_cols / $numcols;
-
-    	switch ($gridtype) {
-    		case 'dgrid':
-    			while ($loop->have_posts() ) : $loop->the_post();
-		        	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
-		        	$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
-
-		        	$output .= "
-		        				<li class='col-sm-$maxcols'>
-		        					<div class='dgrid'>
-			        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-			        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-			        					."</a>
-			        				</div>
-			        				<div class='dgrid-text-wrapper'>
-			        					<h3>". get_the_title($post->ID) ."</h3>
-			        					<p>". $excerpt ."</p>
-			        				</div>
-		        				</li>
-		        			  ";
-		        endwhile;
-
-    			break;
-    		case 'lgrid':
-    			$i=1;
-    			while ($loop->have_posts() ) : $loop->the_post();
-		        	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
-		        	$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
-		        	$output .= "
-		        				<li class='clearfix'>";
-		        				if($i % 2 != 0){
-		        					$output .= "
-		        					<div class='lgrid-img-wrapper col-sm-$maxcols'>
-			        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-			        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-			        					."</a>
-			        				</div>
-			        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
-			        					<h3>". get_the_title($post->ID) ."</h3>
-			        					<p>". $excerpt ."</p>
-			        				</div>";
-			        			}else{
-			        				$output .= "
-			        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
-			        					<h3>". get_the_title($post->ID) ."</h3>
-			        					<p>". $excerpt ."</p>
-			        				</div>
-			        				<div class='lgrid-img-wrapper col-sm-$maxcols'>
-			        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-			        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-			        					."</a>
-			        				</div>";
-			        			}
-		        	$output .= "</li>
-		        			  ";
-		        	$i++;
-		        endwhile;
-    			break;
-    		case 'fgrid':
-    			while ($loop->have_posts() ) : $loop->the_post();
-		        	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
-		        	$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
-		        	$output .= "
-		        				<li class='col-sm-$maxcols nogutter'>
-		        					<div class='fgrid-img-wrapper'>
-			        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-			        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-			        					."</a>
-			        				</div>
-			        				<div class='fgrid-text-wrapper'>
-				        				<h3>". get_the_title($post->ID) ."</h3>
-				        				<p>". $excerpt ."</p>
-			        				</div>
-		        				</li>
-		        			  ";
-		        endwhile;
-    			break;
-    		
-    		default:
-    			# code...
-    			break;
-    	}
+    	$i=1;
+		while ($loop->have_posts() ) : $loop->the_post();
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
+			$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
+			$output = uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $i);
+			$i++;
+		endwhile;
         
         wp_reset_query();
     
