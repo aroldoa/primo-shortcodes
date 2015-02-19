@@ -152,7 +152,7 @@ function uus_posts_listing($atts, $content){
 			'numposts'		=>	!empty($atts['numposts']) ? $atts['numposts'] : '4',
 			'cptname'		=>	!empty($atts['cptname']) ? $atts['cptname'] : 'post',
 			'gridtype'		=>	!empty($atts['gridtype']) ? $atts['gridtype'] : 'dgrid',
-			'type'			=>	!empty($atts['type']) ? $atts['type'] : 'mostviews',
+			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
 			'orderby'		=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'			=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
 			'owlslider'		=>	!empty($atts['owlslider']) ? $atts['owlslider'] : false
@@ -163,11 +163,13 @@ function uus_posts_listing($atts, $content){
 	extract($atts);
 
 	//initialize variables
-	// $meta_query = array();
 	$meta_key = '';
 	$meta_value = '';
 
 	switch ($type) {
+		case '':
+			$meta_query = array();
+			break;
 		case 'mostviews':
 			$meta_query = array(
                     'key'     => 'post_views_count'
@@ -229,7 +231,7 @@ function uus_products_type_listing($atts, $content){
 			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'owl-slider-wrapper',
 			'numcols'		=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'numproducts'	=>	!empty($atts['numproducts']) ? $atts['numproducts'] : '4',
-			'type'			=>	!empty($atts['type']) ? $atts['type'] : 'featured',
+			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
 			'orderby'		=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'			=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
 			'owlslider'		=>	!empty($atts['owlslider']) ? $atts['owlslider'] : false
@@ -240,11 +242,13 @@ function uus_products_type_listing($atts, $content){
 	extract($atts);
 
 	//initialize variables
-	// $meta_query = array();
 	$meta_key = '';
 	$meta_value = '';
 
 	switch ($type) {
+		case '':
+			$meta_query = array();
+			break;
 		case 'best':
 			$meta_query = array(
                     'key'     => 'total_sales'
