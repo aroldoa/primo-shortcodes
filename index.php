@@ -75,42 +75,42 @@ function uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr ){
 
 function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $i){
 	switch ($gridtype) {
-		case 'dgrid':
+		case 'default':
 			$output .= "
 					<li class='col-sm-$maxcols'>
-						<div class='dgrid'>
+						<div class='default'>
 	    					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	    						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	    					."</a>
 	    				</div>
-	    				<div class='dgrid-text-wrapper'>
+	    				<div class='default-text-wrapper'>
 	    					<h3>". get_the_title($post->ID) ."</h3>
 	    					<p>". $excerpt ."</p>
 	    				</div>
 					</li>
 				  ";
 			break;
-		case 'lgrid':
+		case 'ladder':
 			$output .= "
     				<li class='clearfix'>";
     				if($i % 2 != 0){
     					$output .= "
-    					<div class='lgrid-img-wrapper col-sm-$maxcols'>
+    					<div class='ladder-img-wrapper col-sm-$maxcols'>
         					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
         				</div>
-        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
+        				<div class='ladder-text-wrapper col-sm-$maxcols'>
         					<h3>". get_the_title($post->ID) ."</h3>
         					<p>". $excerpt ."</p>
         				</div>";
         			}else{
         				$output .= "
-        				<div class='lgrid-text-wrapper col-sm-$maxcols'>
+        				<div class='ladder-text-wrapper col-sm-$maxcols'>
         					<h3>". get_the_title($post->ID) ."</h3>
         					<p>". $excerpt ."</p>
         				</div>
-        				<div class='lgrid-img-wrapper col-sm-$maxcols'>
+        				<div class='ladder-img-wrapper col-sm-$maxcols'>
         					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
@@ -119,15 +119,15 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         	$output .= "</li>
         			  ";
         	break;
-        case 'fgrid':
+        case 'flat':
         	$output .= "
         				<li class='col-sm-$maxcols nogutter'>
-        					<div class='fgrid-img-wrapper'>
+        					<div class='flat-img-wrapper'>
 	        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	        					."</a>
 	        				</div>
-	        				<div class='fgrid-text-wrapper'>
+	        				<div class='flat-text-wrapper'>
 		        				<h3>". get_the_title($post->ID) ."</h3>
 		        				<p>". $excerpt ."</p>
 	        				</div>
@@ -151,7 +151,7 @@ function uus_posts_listing($atts, $content){
 			'numcols'		=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'numposts'		=>	!empty($atts['numposts']) ? $atts['numposts'] : '4',
 			'cptname'		=>	!empty($atts['cptname']) ? $atts['cptname'] : 'post',
-			'gridtype'		=>	!empty($atts['gridtype']) ? $atts['gridtype'] : 'dgrid',
+			'gridtype'		=>	!empty($atts['gridtype']) ? $atts['gridtype'] : 'default',
 			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
 			'orderby'		=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'			=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
