@@ -307,13 +307,13 @@ function uus_products_type_listing($atts, $content){
     return $output;
 }
 
-add_shortcode('banner', 'banner_element');
-function banner_element($atts, $content){
+add_shortcode('banner', 'uus_banner_element');
+function uus_banner_element($atts, $content){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'ultimate-banner',
-			'class'			=>	!empty($atts['class']) ? $atts['class'] : 'ultimate-banner-class',
+			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'uus-banner',
+			'class'			=>	!empty($atts['class']) ? $atts['class'] : 'uus-banner-class',
 			'text'			=>	!empty($atts['text']) ? $atts['text'] : 'My banner message',
 			'img'			=>	!empty($atts['img']) ? $atts['img'] : '',
 			), $atts
@@ -329,13 +329,13 @@ function banner_element($atts, $content){
 				"</div>";
 	return $output;
 }
-add_shortcode('button', 'button_element');
-function button_element($atts, $content){
+add_shortcode('button', 'uus_button_element');
+function uus_button_element($atts, $content){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'ultimate-button',
-			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'ultimate-button-class',
+			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'uus-button',
+			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'uus-button-class',
 			'text'		=>	!empty($atts['text']) ? $atts['text'] : 'Click Me',
 			'link'		=>	!empty($atts['link']) ? $atts['link'] : get_home_url(),
 			), $atts
@@ -348,13 +348,13 @@ function button_element($atts, $content){
 	return $output;
 }
 
-add_shortcode('categories', 'get_all_categories');
-function get_all_categories($atts){
+add_shortcode('categories', 'uus_get_all_categories');
+function uus_get_all_categories($atts){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'ultimate-products-category',
-			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'ultimate-products-category-class',
+			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'uus-products-category',
+			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'uus-products-category-class',
 			'numcols'	=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'orderby'	=>	!empty($atts['orderby']) ? $atts['orderby'] : 'count',
 			'order'		=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
@@ -384,13 +384,13 @@ function get_all_categories($atts){
 	return $output;
 }
 
-add_shortcode('portfolio', 'get_portfolio');
-function get_portfolio($atts){
+add_shortcode('portfolio', 'uus_get_portfolio');
+function uus_get_portfolio($atts){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'ultimate-portfolio',
-			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'ultimate-portfolio-class',
+			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'uus-portfolio',
+			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'uus-portfolio-class',
 			'numcols'	=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'orderby'	=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'		=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
