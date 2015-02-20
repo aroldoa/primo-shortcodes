@@ -73,7 +73,7 @@ function uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr ){
 	return $output;
 }
 
-function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $i){
+function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $buttontext, $i){
 	switch ($gridtype) {
 		case 'default':
 			$output .= "
@@ -130,7 +130,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
 	        				<div class='uus-flat-text-wrapper'>
 		        				<h3>". get_the_title($post->ID) ."</h3>
 		        				<p>". $excerpt ."</p>
-		        				<a class='uus-post-button' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>View Post</a>
+		        				<a class='uus-post-button' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>$buttontext</a>
 	        				</div>
         				</li>
         			  ";
@@ -153,6 +153,7 @@ function uus_posts_listing($atts, $content){
 			'numposts'		=>	!empty($atts['numposts']) ? $atts['numposts'] : '4',
 			'cptname'		=>	!empty($atts['cptname']) ? $atts['cptname'] : 'post',
 			'gridtype'		=>	!empty($atts['gridtype']) ? $atts['gridtype'] : 'default',
+			'buttontext'	=>	!empty($atts['buttontext']) ? $atts['buttontext'] : 'View Post',
 			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
 			'orderby'		=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'			=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
@@ -207,7 +208,7 @@ function uus_posts_listing($atts, $content){
 		while ($loop->have_posts() ) : $loop->the_post();
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
 			$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
-			$output = uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $i);
+			$output = uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $buttontext, $i);
 			$i++;
 		endwhile;
         
