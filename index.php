@@ -78,12 +78,12 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
 		case 'default':
 			$output .= "
 					<li class='col-sm-$maxcols'>
-						<div class='default'>
-	    					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+						<div class='uus-default'>
+	    					<a id='uus-id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	    						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	    					."</a>
 	    				</div>
-	    				<div class='default-text-wrapper'>
+	    				<div class='uus-default-text-wrapper'>
 	    					<h3>". get_the_title($post->ID) ."</h3>
 	    					<p>". $excerpt ."</p>
 	    				</div>
@@ -95,22 +95,22 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
     				<li class='clearfix'>";
     				if($i % 2 != 0){
     					$output .= "
-    					<div class='ladder-img-wrapper col-sm-$maxcols'>
+    					<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
         					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
         				</div>
-        				<div class='ladder-text-wrapper col-sm-$maxcols'>
+        				<div class='uus-ladder-text-wrapper col-sm-$maxcols'>
         					<h3>". get_the_title($post->ID) ."</h3>
         					<p>". $excerpt ."</p>
         				</div>";
         			}else{
         				$output .= "
-        				<div class='ladder-text-wrapper col-sm-$maxcols'>
+        				<div class='uus-ladder-text-wrapper col-sm-$maxcols'>
         					<h3>". get_the_title($post->ID) ."</h3>
         					<p>". $excerpt ."</p>
         				</div>
-        				<div class='ladder-img-wrapper col-sm-$maxcols'>
+        				<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
         					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
@@ -122,14 +122,15 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         case 'flat':
         	$output .= "
         				<li class='col-sm-$maxcols nogutter'>
-        					<div class='flat-img-wrapper'>
-	        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+        					<div class='uus-flat-img-wrapper'>
+	        					<a id='uus-id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	        					."</a>
 	        				</div>
-	        				<div class='flat-text-wrapper'>
+	        				<div class='uus-flat-text-wrapper'>
 		        				<h3>". get_the_title($post->ID) ."</h3>
 		        				<p>". $excerpt ."</p>
+		        				<a class='uus-post-button' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>View Post</a>
 	        				</div>
         				</li>
         			  ";
