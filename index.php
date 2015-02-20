@@ -79,7 +79,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
 			$output .= "
 					<li class='col-sm-$maxcols'>
 						<div class='uus-default'>
-	    					<a id='uus-id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+	    					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	    						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	    					."</a>
 	    				</div>
@@ -96,7 +96,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
     				if($i % 2 != 0){
     					$output .= "
     					<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
-        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
         				</div>
@@ -111,7 +111,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         					<p>". $excerpt ."</p>
         				</div>
         				<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
-        					<a id='id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
         						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
         					."</a>
         				</div>";
@@ -123,7 +123,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         	$output .= "
         				<li class='col-sm-$maxcols nogutter'>
         					<div class='uus-flat-img-wrapper'>
-	        					<a id='uus-id-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
+	        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
 	        					."</a>
 	        				</div>
@@ -148,7 +148,7 @@ function uus_posts_listing($atts, $content){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'owl-slider-wrapper',
+			'id'			=>	!empty($atts['id']) ? $atts['id'] : '',
 			'numcols'		=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'numposts'		=>	!empty($atts['numposts']) ? $atts['numposts'] : '4',
 			'cptname'		=>	!empty($atts['cptname']) ? $atts['cptname'] : 'post',
@@ -200,9 +200,11 @@ function uus_posts_listing($atts, $content){
     $loop = new WP_Query( $args );
     global $post;
     if( $owlslider ){
+    	$id = 'uus-posts-id';
     	$output = uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr );
     }else{
-    	$output = "<ul id='$id' class='posts'>";
+    	$id = 'uus-owl-slider-id';
+    	$output = "<ul id='$id' class='uus-posts-wrapper'>";
     	$maxcols = $bootstrap_default_cols / $numcols;
     	$i=1;
 		while ($loop->have_posts() ) : $loop->the_post();
@@ -230,7 +232,7 @@ function uus_products_type_listing($atts, $content){
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
-			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'owl-slider-wrapper',
+			'id'			=>	!empty($atts['id']) ? $atts['id'] : '',
 			'numcols'		=>	!empty($atts['numcols']) ? $atts['numcols'] : '4',
 			'numproducts'	=>	!empty($atts['numproducts']) ? $atts['numproducts'] : '4',
 			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
@@ -287,15 +289,17 @@ function uus_products_type_listing($atts, $content){
 
     $loop = new WP_Query( $args );
     if($owlslider){
+    	$id = 'uus-products-id'
         $output = uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr );
     }else{
-    	$output = "<ul id='$id' class='products'>";
+    	$id = 'uus-owl-slider-id';
+    	$output = "<ul id='$id' class='uus-products-wrapper'>";
         $maxcols = $bootstrap_default_cols / $numcols;
         while ( $loop->have_posts() ) : $loop->the_post(); global $product;
         	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->post->ID ));
         	$output .= "
         				<li class='col-sm-$maxcols'>
-        					<a id='id-" . $product->post->ID . "' href='" . get_permalink($product->post->ID) . "' title='" . get_the_title($product->post->ID) ."'>" .
+        					<a id='uus-products" . $product->post->ID . "' href='" . get_permalink($product->post->ID) . "' title='" . get_the_title($product->post->ID) ."'>" .
         						get_the_post_thumbnail( $product->post->ID, 'large', $img_attr )
         					."</a>
         				</li>
