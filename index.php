@@ -325,7 +325,7 @@ function uus_banner_element($atts, $content){
 
 	$output = "
 				<div id='$id' class='$class' style='background-image:url($img);'>
-					<p>$text</p>" .
+					$text" .
 					do_shortcode($content) .
 				"</div>";
 	return $output;
