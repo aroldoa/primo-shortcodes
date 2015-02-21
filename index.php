@@ -289,7 +289,7 @@ function uus_products_type_listing($atts, $content){
 
     $loop = new WP_Query( $args );
     if($owlslider){
-    	$id = 'uus-products-id'
+    	$id = 'uus-products-id';
         $output = uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr );
     }else{
     	$id = 'uus-owl-slider-id';
