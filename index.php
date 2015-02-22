@@ -200,10 +200,10 @@ function uus_posts_listing($atts, $content){
     $loop = new WP_Query( $args );
     global $post;
     if( $owlslider ){
-    	$id = 'uus-posts-id';
+    	$id = 'uus-owl-slider-id';
     	$output = uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr );
     }else{
-    	$id = 'uus-owl-slider-id';
+    	$id = 'uus-posts-id';
     	$output = "<ul id='$id' class='uus-posts-wrapper'>";
     	$maxcols = $bootstrap_default_cols / $numcols;
     	$i=1;
@@ -289,10 +289,10 @@ function uus_products_type_listing($atts, $content){
 
     $loop = new WP_Query( $args );
     if($owlslider){
-    	$id = 'uus-products-id';
+    	$id = 'uus-owl-slider-id';
         $output = uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr );
     }else{
-    	$id = 'uus-owl-slider-id';
+    	$id = 'uus-products-id';
     	$output = "<ul id='$id' class='uus-products-wrapper'>";
         $maxcols = $bootstrap_default_cols / $numcols;
         while ( $loop->have_posts() ) : $loop->the_post(); global $product;
