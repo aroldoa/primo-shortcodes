@@ -121,7 +121,7 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         	break;
         case 'flat':
         	$output .= "
-        				<li class='col-sm-$maxcols nogutter'>
+        				<li class='col-sm-$maxcols col-md-6 col-lg-$maxcols nogutter'>
         					<div class='uus-flat-img-wrapper'>
 	        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
 	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
