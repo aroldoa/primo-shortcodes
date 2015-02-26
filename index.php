@@ -23,7 +23,7 @@ function uus_load_dependencies(){
 	//get plugin style
 	$style = plugins_url( 'includes/css/uus-style.css', __FILE__ );
 	//load plugin css
-	wp_register_style( 'uus-style', $style, array(''), '1.0' );
+	wp_register_style( 'uus-style', $style, array(), '1.0' );
 	//enqueue style
 	wp_enqueue_style( 'uus-style' );
 
