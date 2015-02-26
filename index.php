@@ -20,6 +20,12 @@ function uus_load_dependencies(){
 	$owl_carousel_theme_url = plugins_url( 'includes/css/owl-carousel/owl.theme.css', __FILE__ );
    	//get the carousel css url
 	$owl_carousel_css_url = plugins_url( 'includes/css/owl-carousel/owl.carousel.css', __FILE__ );
+	//get plugin style
+	$style = plugins_url( 'includes/css/uus-style.css', __FILE__ )
+	//load plugin css
+	wp_register_style( 'uus-style', $style, array(''), '1.0' );
+	//enqueue style
+	wp_enqueue_style( 'uus-style' );
 
 	if ( !wp_script_is( $owl_carousel_js, $list ) ) {
 		//register owl js
@@ -101,14 +107,14 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         					."</a>
         				</div>
         				<div class='uus-ladder-text-wrapper col-sm-$maxcols'>
-        					<h3>". get_the_title($post->ID) ."</h3>
-        					<p>". $excerpt ."</p>
+        					<h3 class='uus-post-title'>". get_the_title($post->ID) ."</h3>
+        					<p class='uus-post-excerpt'>". $excerpt ."</p>
         				</div>";
         			}else{
         				$output .= "
         				<div class='uus-ladder-text-wrapper col-sm-$maxcols'>
-        					<h3>". get_the_title($post->ID) ."</h3>
-        					<p>". $excerpt ."</p>
+        					<h3 class='uus-post-title'>". get_the_title($post->ID) ."</h3>
+        					<p class='uus-post-excerpt'>". $excerpt ."</p>
         				</div>
         				<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
         					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
@@ -128,8 +134,8 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
 	        					."</a>
 	        				</div>
 	        				<div class='uus-flat-text-wrapper'>
-		        				<h3>". get_the_title($post->ID) ."</h3>
-		        				<p>". $excerpt ."</p>
+		        				<h3 class='uus-post-title'>". get_the_title($post->ID) ."</h3>
+		        				<p class='uus-post-excerpt'>". $excerpt ."</p>
 		        				<a class='uus-post-button' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>$buttontext</a>
 	        				</div>
         				</li>

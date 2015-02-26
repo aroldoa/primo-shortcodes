@@ -1,0 +1,85 @@
+ul.uus-posts-wrapper{
+	list-style-type: none; 
+	margin: 0px; 
+	padding: 0px;
+}
+ul.uus-posts-wrapper li{
+	padding: 0px; 
+	margin: 0px;
+	float: left;
+}
+.uus-flat-text-wrapper{
+	background-color: #00529b;
+	width: 100%;
+	height: 100%;
+	visibility:hidden;
+	opacity:0;
+	position:absolute;
+	top: 0px;
+
+	-webkit-transition: all 0.2s ease-out;  /* Android 2.1+, Chrome 1-25, iOS 3.2-6.1, Safari 3.2-6  */
+	transition: all 0.2s ease-out;  /* Chrome 26, Firefox 16+, iOS 7+, IE 10+, Opera, Safari 6.1+  */
+}
+.uus-posts-wrapper li:hover .uus-flat-text-wrapper{
+	visibility:visible;
+	opacity:.95;
+	cursor: pointer;
+}
+
+.uus-posts-wrapper .uus-flat-text-wrapper{
+	text-align: center;
+	color: #fff;
+}
+
+.uus-post-title{
+	margin-top:15%;
+	font-size:36px;
+}
+
+.uus-post-excerpt p{
+	padding: 25px 100px;
+	line-height: 2;
+}
+
+.uus-post-button{
+	padding:20px 60px;
+	border:1px solid #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+	display:inline-block;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) and (max-width: 1400px){
+	.uus-post-title{
+		margin-top:10%;
+		font-size:24px;
+	}
+	.uus-post-excerpt{
+		padding: 10px 40px;
+		line-height: 1.5;
+	}
+
+}
+ 
+@media (min-width: 768px) and (max-width: 876px) {
+	.uus-post-title{
+		margin-top:10%;
+		font-size:24px;
+	}
+	.uus-post-excerpt{
+		padding: 15px 60px;
+		line-height: 1.5;
+	}
+	.uus-post-button{
+		padding:10px 45px;
+	}
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { ... }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { ... }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { ... }
