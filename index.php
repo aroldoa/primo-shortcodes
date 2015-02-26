@@ -21,7 +21,7 @@ function uus_load_dependencies(){
    	//get the carousel css url
 	$owl_carousel_css_url = plugins_url( 'includes/css/owl-carousel/owl.carousel.css', __FILE__ );
 	//get plugin style
-	$style = plugins_url( 'includes/css/uus-style.css', __FILE__ )
+	$style = plugins_url( 'includes/css/uus-style.css', __FILE__ );
 	//load plugin css
 	wp_register_style( 'uus-style', $style, array(''), '1.0' );
 	//enqueue style
