@@ -36,8 +36,8 @@ ul.uus-posts-wrapper li{
 	font-size:36px;
 }
 
-.uus-post-excerpt p{
-	padding: 25px 100px;
+.uus-post-excerpt{
+	padding: 25px 15%;
 	line-height: 2;
 }
 
@@ -56,7 +56,7 @@ ul.uus-posts-wrapper li{
 		font-size:24px;
 	}
 	.uus-post-excerpt{
-		padding: 10px 40px;
+		padding: 10px 15%;
 		line-height: 1.5;
 	}
 
@@ -68,7 +68,7 @@ ul.uus-posts-wrapper li{
 		font-size:24px;
 	}
 	.uus-post-excerpt{
-		padding: 15px 60px;
+		padding: 15px 10%;
 		line-height: 1.5;
 	}
 	.uus-post-button{
