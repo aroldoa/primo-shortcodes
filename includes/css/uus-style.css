@@ -50,19 +50,19 @@ ul.uus-posts-wrapper li{
 }
 
 /* Large desktop */
-@media (min-width: 1200px) and (max-width: 1400px){
+@media (min-width: 1200px) and (max-width: 1600px){
 	.uus-post-title{
 		margin-top:10%;
 		font-size:24px;
 	}
 	.uus-post-excerpt{
-		padding: 10px 15%;
+		padding: 10px 10%;
 		line-height: 1.5;
 	}
 
 }
  
-@media (min-width: 768px) and (max-width: 876px) {
+@media (min-width: 768px) and (max-width: 979px) {
 	.uus-post-title{
 		margin-top:10%;
 		font-size:24px;

@@ -7,38 +7,68 @@ Version: 1.0
 Author: Mario Silva
 Author URI: http://www.datamaw.com
 */
-function uus_load_dependencies(){
+function uus_load_dependencies( $owlslider, $lazyload ){
+
+	$list = 'done';
+
 	$params = array(
 		'bootstrap_default_cols'	=>	12
 		);
-	$owl_carousel_js = 'owl-carousel-js';
-	$list = 'done';
 
-	//get the carousel js url
-	$owl_carousel_js_url = plugins_url( 'includes/js/owl-carousel/owl.carousel.min.js', __FILE__ );	
-	//get the carousel theme url
-	$owl_carousel_theme_url = plugins_url( 'includes/css/owl-carousel/owl.theme.css', __FILE__ );
-   	//get the carousel css url
-	$owl_carousel_css_url = plugins_url( 'includes/css/owl-carousel/owl.carousel.css', __FILE__ );
+
+	if( $owlslider ){
+		$owl_carousel_js = 'owl-carousel-js';
+		//get the carousel js url
+		$owl_carousel_js_url = plugins_url( 'includes/js/owl-carousel/owl.carousel.min.js', __FILE__ );	
+		//get the carousel theme url
+		$owl_carousel_theme_url = plugins_url( 'includes/css/owl-carousel/owl.theme.css', __FILE__ );
+	   	//get the carousel css url
+		$owl_carousel_css_url = plugins_url( 'includes/css/owl-carousel/owl.carousel.css', __FILE__ );
+
+		if ( !wp_script_is( $owl_carousel_js, $list ) ) {
+			//register owl js
+			wp_register_script( $owl_carousel_js, $owl_carousel_js_url, array('jquery'), '1.0' );
+			//enqueue js
+			wp_enqueue_script( $owl_carousel_js ); 
+			//register owl css
+			wp_register_style( 'owl-carousel-css', $owl_carousel_css_url, array(), '1.0' );
+			//register owl theme
+			wp_register_style( 'owl-carousel-theme', $owl_carousel_theme_url, array('owl-carousel-css'), '1.0' );
+			//enqueue style
+			wp_enqueue_style( 'owl-carousel-theme' );
+	    }
+	}
+
+	if( $lazyload){
+
+		$lazy_load_js = 'lazy-load-xt';
+		//get the lazy load settings js url
+		$lazy_load_settings_js_url = plugins_url( 'includes/js/lazy-load-xt/lazy-load-custom-settings.js', __FILE__ );	
+		//get the lazy load js url
+		$lazy_load_js_url = plugins_url( 'includes/js/lazy-load-xt/jquery.lazyloadxt.min.js', __FILE__ );	
+		//get the lazy load css url
+		$lazy_load_css_url = plugins_url( 'includes/css/lazy-load-xt/jquery.lazyloadxt.fadein.min.css', __FILE__ );
+
+		if ( !wp_script_is( $lazy_load_js, $list ) ) {
+			//register lazy load js
+			wp_register_script( $lazy_load_js, $lazy_load_js_url, array('jquery'), '1.0');
+			//register lazy load js
+			wp_register_script( 'lazy-load-settings', $lazy_load_settings_js_url, array($lazy_load_js), '1.0' );
+			//enqueue js
+			wp_enqueue_script( 'lazy-load-settings' ); 
+			//register owl css
+			wp_register_style( 'lazy-load-css', $lazy_load_css_url, array(), '1.0' );
+			//enqueue style
+			wp_enqueue_style( 'lazy-load-css' );
+	    }
+	}
+
 	//get plugin style
 	$style = plugins_url( 'includes/css/uus-style.css', __FILE__ );
 	//load plugin css
 	wp_register_style( 'uus-style', $style, array(), '1.0' );
 	//enqueue style
 	wp_enqueue_style( 'uus-style' );
-
-	if ( !wp_script_is( $owl_carousel_js, $list ) ) {
-		//register owl js
-		wp_register_script( $owl_carousel_js, $owl_carousel_js_url, array('jquery'), '1.0' );
-		//enqueue js
-		wp_enqueue_script( $owl_carousel_js ); 
-		//register owl css
-		wp_register_style( 'owl-carousel-css', $owl_carousel_css_url, array(), '1.0' );
-		//register owl theme
-		wp_register_style( 'owl-carousel-theme', $owl_carousel_theme_url, array('owl-carousel-css'), '1.0' );
-		//enqueue style
-		wp_enqueue_style( 'owl-carousel-theme' );
-    }
 
     return $params;
 }
@@ -62,32 +92,41 @@ function uus_owlslider( $shortcode, $loop, $id, $numcols, $img_attr ){
     $output .= "</div>";
 
     $output .= "<script>
-		  jQuery(document).ready(function() {
-		 
-		  jQuery('#$id').owlCarousel({
-		 
-		      autoPlay: 3000, //Set AutoPlay to 3 seconds
-		 
-		      items : $numcols,
-		      itemsDesktop : [1199,3],
-		      itemsDesktopSmall : [979,3]
-		 
-		  });
-		 
-		});
-	</script>";
+					jQuery(document).ready(function() {
+
+						jQuery('#$id').owlCarousel({
+
+							autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+							items : $numcols,
+							itemsDesktop : [1199,3],
+							itemsDesktopSmall : [979,3]
+
+						});
+					 
+					});
+				</script>";
 	return $output;
 }
 
-function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $buttontext, $i){
+function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $imgsize, $excerpt, $output, $buttontext, $i, $lazyload ){
+
+	$imgurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $imgsize);
+
+	if( $lazyload ){
+		$src = "data-src='" . $imgurl[0] . " ' ";
+	}else{
+		$src = "src='" . $imgurl[0] . " ' ";
+	}
+
 	switch ($gridtype) {
 		case 'default':
 			$output .= "
 					<li class='col-sm-$maxcols'>
 						<div class='uus-default'>
-	    					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-	    						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-	    					."</a>
+	    					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>
+	    						<img " . $src . "class='" . $img_attr['class'] . "' alt='" . $post->post_name . "' width='" . $imgurl[1] . "' height='". $imgurl[2] ."' /> 
+	    					</a>
 	    				</div>
 	    				<div class='uus-default-text-wrapper'>
 	    					<h3>". get_the_title($post->ID) ."</h3>
@@ -102,9 +141,9 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
     				if($i % 2 != 0){
     					$output .= "
     					<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
-        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-        					."</a>
+        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>
+        						<img " . $src . "class='" . $img_attr['class'] . "' alt='" . $post->post_name . "' width='" . $imgurl[1] . "' height='". $imgurl[2] ."' /> 
+        					</a>
         				</div>
         				<div class='uus-ladder-text-wrapper col-sm-$maxcols'>
         					<h3 class='uus-post-title'>". get_the_title($post->ID) ."</h3>
@@ -117,9 +156,9 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         					<p class='uus-post-excerpt'>". $excerpt ."</p>
         				</div>
         				<div class='uus-ladder-img-wrapper col-sm-$maxcols'>
-        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-        					."</a>
+        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>
+        						<img " . $src . "class='" . $img_attr['class'] . "' alt='" . $post->post_name . "' width='" . $imgurl[1] . "' height='". $imgurl[2] ."' /> 
+        					</a>
         				</div>";
         			}
         	$output .= "</li>
@@ -129,9 +168,9 @@ function uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, 
         	$output .= "
         				<li class='col-sm-6 col-md-6 col-lg-$maxcols nogutter'>
         					<div class='uus-flat-img-wrapper'>
-	        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>" .
-	        						get_the_post_thumbnail( $post->ID, 'large', $img_attr )
-	        					."</a>
+	        					<a id='uus-post-" . $post->ID . "' href='" . get_permalink($post->ID) . "' title='" . get_the_title($post->ID) ."'>
+	        						<img " . $src . "class='" . $img_attr['class'] . "' alt='" . $post->post_name . "' width='" . $imgurl[1] . "' height='". $imgurl[2] ."' /> 
+	        					</a>
 	        				</div>
 	        				<div class='uus-flat-text-wrapper'>
 		        				<h3 class='uus-post-title'>". get_the_title($post->ID) ."</h3>
@@ -149,8 +188,7 @@ add_shortcode('posts', 'uus_posts_listing');
 
 function uus_posts_listing($atts, $content){
 	$shortcode = 'posts';
-	//extract all from params array
-	extract(uus_load_dependencies());
+	
 	//start the shortcode
 	$atts = shortcode_atts(
 		array(
@@ -159,16 +197,25 @@ function uus_posts_listing($atts, $content){
 			'numposts'		=>	!empty($atts['numposts']) ? $atts['numposts'] : '4',
 			'cptname'		=>	!empty($atts['cptname']) ? $atts['cptname'] : 'post',
 			'gridtype'		=>	!empty($atts['gridtype']) ? $atts['gridtype'] : 'default',
+			'imgsize'		=>	!empty($atts['imgsize']) ? $atts['imgsize'] : 'large',
 			'buttontext'	=>	!empty($atts['buttontext']) ? $atts['buttontext'] : 'View Post',
 			'type'			=>	!empty($atts['type']) ? $atts['type'] : '',
 			'orderby'		=>	!empty($atts['orderby']) ? $atts['orderby'] : 'date',
 			'order'			=>	!empty($atts['order']) ? $atts['order'] : 'DESC',
-			'owlslider'		=>	!empty($atts['owlslider']) ? $atts['owlslider'] : false
+			'owlslider'		=>	!empty($atts['owlslider']) ? $atts['owlslider'] : false,
+			'lazyload'		=>	!empty($atts['lazyload']) ? $atts['lazyload'] : false
 			), $atts
 		);
 
 	//extract all from attributes array
 	extract($atts);
+
+	//convert string booleans from owlslider and lazyload to real booleans
+	$owlslider = filter_var($owlslider, FILTER_VALIDATE_BOOLEAN);
+	$lazyload = filter_var($lazyload, FILTER_VALIDATE_BOOLEAN); // true
+
+	//extract all from params array
+	extract(uus_load_dependencies($owlslider,$lazyload));
 
 	//initialize variables
 	$meta_key = '';
@@ -216,7 +263,7 @@ function uus_posts_listing($atts, $content){
 		while ($loop->have_posts() ) : $loop->the_post();
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ));
 			$excerpt = apply_filters('the_excerpt', get_post_field('post_excerpt', $post->ID));
-			$output = uus_gridtype($gridtype, $post, $maxcols, $img_attr, $excerpt, $output, $buttontext, $i);
+			$output = uus_gridtype($gridtype, $post, $maxcols, $img_attr, $imgsize, $excerpt, $output, $buttontext, $i, $lazyload);
 			$i++;
 		endwhile;
         
