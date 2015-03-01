@@ -4,4 +4,4 @@ $ = jQuery;
 $.lazyLoadXT.edgeY = -100;
 
 //use animate.ccs
-$.lazyLoadXT.onload.addClass = 'animated fadeIn';
+// $.lazyLoadXT.onload.addClass = 'animated fadeIn';
