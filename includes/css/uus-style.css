@@ -49,6 +49,13 @@ ul.uus-posts-wrapper li{
 	display:inline-block;
 }
 
+/*lazy loading */
+
+/*prevents flicker when using animate.cs*/
+
+.lazy-hidden{
+	opacity: 0;
+}
 /* Large desktop */
 @media (min-width: 1200px) and (max-width: 1600px){
 	.uus-post-title{

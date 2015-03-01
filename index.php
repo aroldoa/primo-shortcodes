@@ -47,7 +47,9 @@ function uus_load_dependencies( $owlslider, $lazyload ){
 		//get the lazy load js url
 		$lazy_load_js_url = plugins_url( 'includes/js/lazy-load-xt/jquery.lazyloadxt.min.js', __FILE__ );	
 		//get the lazy load css url
-		$lazy_load_css_url = plugins_url( 'includes/css/lazy-load-xt/jquery.lazyloadxt.fadein.min.css', __FILE__ );
+		// $lazy_load_css_url = plugins_url( 'includes/css/lazy-load-xt/jquery.lazyloadxt.fadein.min.css', __FILE__ );
+		//get the animate css file
+		$lazy_load_css_url = plugins_url( 'includes/css/animate/animate.min.css', __FILE__ );
 
 		if ( !wp_script_is( $lazy_load_js, $list ) ) {
 			//register lazy load js
