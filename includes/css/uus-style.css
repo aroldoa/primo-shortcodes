@@ -3,6 +3,9 @@ ul.uus-posts-wrapper{
 	margin: 0px; 
 	padding: 0px;
 }
+ul.uus-posts-wrapper .row{
+	margin:0;
+}
 ul.uus-posts-wrapper li{
 	padding: 0px; 
 	margin: 0px;
