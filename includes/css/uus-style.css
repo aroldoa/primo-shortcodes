@@ -65,19 +65,21 @@ ul.uus-posts-wrapper li{
 		margin-top:10%;
 		font-size:24px;
 	}
-	.uus-post-excerpt{
+	.uus-flat-text-wrapper .uus-post-excerpt{
 		padding: 10px 10%;
-		line-height: 1.5;
+		line-height: 1;
+		margin: 0 0 10px;
+		font-size: 14px;
 	}
 
 }
  
 @media (min-width: 768px) and (max-width: 979px) {
 	.uus-post-title{
-		margin-top:10%;
+		margin-top:5%;
 		font-size:24px;
 	}
-	.uus-post-excerpt{
+	.uus-flat-text-wrapper .uus-post-excerpt{
 		padding: 15px 10%;
 		line-height: 1.5;
 	}
