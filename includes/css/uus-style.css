@@ -52,6 +52,24 @@ ul.uus-posts-wrapper li{
 	display:inline-block;
 }
 
+.uus-banner-wrapper{
+	height:300px;
+	text-align:center;
+	padding:10px 0;
+	margin:10px 0;
+}
+.uus-banner-text{
+	margin:20px 0 10px 0;
+	font-size:50px;
+}
+.uus-button{
+	text-transform: uppercase;
+	padding:16px 100px;
+	font-weight: lighter;
+	font-size: 20px;
+	letter-spacing: 0.3em;
+}
+
 /*lazy loading */
 
 /*prevents flicker when using animate.cs*/

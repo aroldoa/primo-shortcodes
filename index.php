@@ -317,7 +317,7 @@ function uus_banner_element($atts, $content){
 	$atts = shortcode_atts(
 		array(
 			'id'			=>	!empty($atts['id']) ? $atts['id'] : 'uus-banner',
-			'class'			=>	!empty($atts['class']) ? $atts['class'] : 'uus-banner-class',
+			'class'			=>	!empty($atts['class']) ? $atts['class'] : 'uus-banner-wrapper',
 			'text'			=>	!empty($atts['text']) ? $atts['text'] : 'My banner message',
 			'img'			=>	!empty($atts['img']) ? $atts['img'] : '',
 			), $atts
@@ -325,13 +325,19 @@ function uus_banner_element($atts, $content){
 
 	//extract all from array
 	extract($atts);
+	extract(uus_load_dependencies());
 
-	$output = "<div class='uus-banner-wrapper'>
-					<div id='$id' class='$class' style='background-image:url($img);background-repeat:none;'>
-						$text" .
-						do_shortcode($content) .
-					"</div>
-			   </div>";
+	if ($img == ''){
+		$output = "	<div id='$id' class='$class'>";
+	}else{
+		$output = "	<div id='$id' class='$class' style='background-image:url($img);background-repeat:no-repeat;background-position:center;'>";
+	}
+
+	$output .=			"<p class='uus-banner-text'>
+							$text" .
+							do_shortcode($content) .
+						"</p>
+				   </div>";
 	return $output;
 }
 add_shortcode('button', 'uus_button_element');
@@ -340,7 +346,7 @@ function uus_button_element($atts, $content){
 	$atts = shortcode_atts(
 		array(
 			'id'		=>	!empty($atts['id']) ? $atts['id'] : 'uus-button',
-			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'uus-button-class',
+			'class'		=>	!empty($atts['class']) ? $atts['class'] : 'uus-button',
 			'text'		=>	!empty($atts['text']) ? $atts['text'] : 'Click Me',
 			'link'		=>	!empty($atts['link']) ? $atts['link'] : get_home_url(),
 			), $atts

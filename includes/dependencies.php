@@ -1,6 +1,6 @@
 <?php
 
-function uus_load_dependencies( $owlslider, $lazyload ){
+function uus_load_dependencies( $owlslider = false, $lazyload = false ){
 
 	$list = 'done';
 
@@ -60,10 +60,13 @@ function uus_load_dependencies( $owlslider, $lazyload ){
 
 	//get plugin style
 	$style = plugins_url( 'css/uus-style.css', __FILE__ );
-	//load plugin css
-	wp_register_style( 'uus-style', $style, array(), '1.0' );
-	//enqueue style
-	wp_enqueue_style( 'uus-style' );
+
+	if ( !wp_script_is( $style, $list ) ) {
+		//load plugin css
+		wp_register_style( 'uus-style', $style, array(), '1.0' );
+		//enqueue style
+		wp_enqueue_style( 'uus-style' );
+	}
 
     return $params;
 }
