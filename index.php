@@ -326,11 +326,12 @@ function uus_banner_element($atts, $content){
 	//extract all from array
 	extract($atts);
 
-	$output = "
-				<div id='$id' class='$class' style='background-image:url($img);'>
-					$text" .
-					do_shortcode($content) .
-				"</div>";
+	$output = "<div class='uus-banner-wrapper'>
+					<div id='$id' class='$class' style='background-image:url($img);background-repeat:none;'>
+						$text" .
+						do_shortcode($content) .
+					"</div>
+			   </div>";
 	return $output;
 }
 add_shortcode('button', 'uus_button_element');
